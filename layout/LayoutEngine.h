@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <stack>
+#include <set>
 
 /*
  * Layout Engine
@@ -21,10 +22,13 @@ class LayoutEngine {
 
         std::string toString();
         void startLayout();
+        LayoutData layoutText(std::string);
 
     private:
         void layout(Node* n, int voff, int hoff);
-        
+        int parsePixels(std::string);
+        std::vector<Node*> DFS();
+        std::set<std::string> blocks = {"img", "div", "body"};
 
 };
 

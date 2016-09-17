@@ -25,6 +25,7 @@ int main() {
 
     Node* root = new Node();
     root->name = "body";
+    root->addAttribute("id", "body");
 
     Node* y1 = new Node();
     y1->name = "div";
@@ -59,6 +60,7 @@ int main() {
     root->children[3]->addChild(b4);
 
     LayoutEngine le(root, styles);
+    le.startLayout();
     std::cout << le.toString();
 }
 

@@ -9,6 +9,7 @@
 class LayoutData {
     public:
         
+        bool block = true;
         int voff = 0; //vertical offset
         int hoff = 0; //horizontal offset
 
