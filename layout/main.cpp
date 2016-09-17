@@ -25,6 +25,7 @@ int main() {
 
     Node* root = new Node();
     root->name = "body";
+    root->addAttribute("id", "body");
 
     Node* y1 = new Node();
     y1->name = "div";
