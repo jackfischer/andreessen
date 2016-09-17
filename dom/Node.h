@@ -10,6 +10,7 @@ class Node {
         std::vector<Node *> children;
         std::string name;
         std::map<std::string, std::string> attributes;
+        std::string textData;
         //functions
         Node();
         Node(Node *p);
