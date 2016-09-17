@@ -8,11 +8,14 @@
 
 class LayoutData {
     public:
-        int voffset;
-        int hoffset;
+        
+        int voff = 0; //vertical offset
+        int hoff = 0; //horizontal offset
 
-        int width;
-        int height;
+        //int width = -1;
+        //int height = -1;
+        int width = 0;
+        int height = 0;
 
 };
 

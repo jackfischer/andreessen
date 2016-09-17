@@ -3,20 +3,28 @@
 
 #include "../DOM/Node.h"
 #include <map>
+#include <string>
+#include <stack>
 
 /*
  * Layout Engine
  */
 
-typedef std::map<std::string, std::map<std::string, std::string>> css;
+typedef std::map<std::string, std::map<std::string, std::string> > css;
 
 class LayoutEngine {
     public:
+        const int BROWSER_WIDTH = 960;
+        Node* root;
         css style;
-        Node root;
+        LayoutEngine(Node* root, css style) : root(root), style(style) {}
 
-        LayoutEngine(css style, Node root);
-        void performLayout();
+        std::string toString();
+        void startLayout();
+
+    private:
+        void layout(Node* n, int voff, int hoff);
+        
 
 };
 
