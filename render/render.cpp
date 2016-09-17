@@ -63,8 +63,8 @@ void init()
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutCreateWindow("Andreesen");
     glutInitWindowSize(1000, 700);
+    glutCreateWindow("Andreesen");
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
     glutDisplayFunc(display);
