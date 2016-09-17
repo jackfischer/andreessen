@@ -16,32 +16,35 @@ const char *example = "Look at my pretty fonts";
 //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 // }
 
-void drawBitmapText(const char *string, float x, float y, float z)
+void drawBitmapText(const char *string, float x, float y, int size, float r, float g, float b)
 {
-    const char *c;
-    glRasterPos3f(x, y, z);
+    glRasterPos2f(x, y);
 
+    glBegin(GL_POLYGON);
+        glColor3f(r, g, b);
+    glEnd();
+
+    void *character = (size == 1) ? GLUT_BITMAP_HELVETICA_10
+        : (size == 2) ? GLUT_BITMAP_HELVETICA_12
+        : (size == 3) ? GLUT_BITMAP_HELVETICA_18
+        : GLUT_BITMAP_HELVETICA_12;
+
+    const char *c;
     for (c = string; *c != '\0'; c++) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+        glutBitmapCharacter(character, *c);
     }
 }
 
 void display()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    glColor3f(1, 1, 1);
+    drawBitmapText(example, 0, 0, 1, 1, 0, 0);
+    drawBitmapText(example, 0, 5, 2, 1, 1, 1);
+    drawBitmapText(example, 0, 10, 3, 1, 1, 0);
+    drawBitmapText(example, 0, 15, 4, 0, 1, 1);
 
-    // glBegin(GL_QUADS);
-    //     glTexCoord2f(0, 1); glVertex2f(-2, -1);
-    //     glTexCoord2f(1, 1); glVertex2f(2, -1);
-    //     glTexCoord2f(1, 0); glVertex2f(2, 1);
-    //     glTexCoord2f(0, 0); glVertex2f(-2, 1);
-    // glEnd();
-    //
-    drawBitmapText(example, 0, 0, 0);
-
-    glutSwapBuffers();
+    glFlush();
 }
 
 void reshape(int w, int h)
@@ -49,23 +52,22 @@ void reshape(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, 100, 0, 100, 0, -10);
+    glScalef(1, -0.95, 1);
+    gluOrtho2D(0, 100, 0, 100);
     glMatrixMode(GL_MODELVIEW);
 }
 
 void init()
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    glClearDepth(1.0);
-    glEnable(GL_DEPTH_TEST);
 }
 
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutCreateWindow("Andreesen");
     glutInitWindowSize(1000, 700);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutCreateWindow("Andreesen");
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
