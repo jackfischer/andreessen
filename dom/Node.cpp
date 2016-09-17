@@ -21,7 +21,7 @@ void Node::addAttribute(std::string key, std::string data) {
 }
 void Node::print(std::string before, std::string beforeLast) {
     int numChildren = Node::children.size();
-    std::cout<<Node::name;
+    std::cout<<Node::name<<" ";
     for (auto iter : Node::attributes) {
         std::cout<<"key: "<<iter.first<<" = "<<iter.second<<"\t";
     }
