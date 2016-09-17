@@ -1,9 +1,10 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "../layout/LayoutData.h"
+
 #ifndef NODE_H
 #define NODE_H
-#include "../layout/LayoutData.h"
 
 class Node {
     public:
@@ -23,4 +24,5 @@ class Node {
         void addAttribute(std::string key, std::string data);
         void print(std::string before, std::string beforeLast);
 };
+
 #endif
