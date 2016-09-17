@@ -1,6 +1,6 @@
 
 all: Node.o LayoutEngine.o main.o
-	g++ Node.o main.o -o run
+	g++ Node.o LayoutEngine.o main.o -o run
 
 main.o:
 	g++ -c -std=c++11 main.cpp

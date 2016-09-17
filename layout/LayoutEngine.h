@@ -15,15 +15,15 @@ typedef std::map<std::string, std::map<std::string, std::string> > css;
 class LayoutEngine {
     public:
         const int BROWSER_WIDTH = 960;
-        Node root;
+        Node* root;
         css style;
-        LayoutEngine(Node root, css style) : root(root), style(style) {}
+        LayoutEngine(Node* root, css style) : root(root), style(style) {}
 
         std::string toString();
         void startLayout();
 
     private:
-        void layout(Node n, int voff, int hoff);
+        void layout(Node* n, int voff, int hoff);
         
 
 };
