@@ -59,6 +59,7 @@ int main() {
     root->children[3]->addChild(b4);
 
     LayoutEngine le(root, styles);
+    le.startLayout();
     std::cout << le.toString();
 }
 

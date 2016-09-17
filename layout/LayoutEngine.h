@@ -21,9 +21,11 @@ class LayoutEngine {
 
         std::string toString();
         void startLayout();
+        LayoutData layoutText(std::string);
 
     private:
         void layout(Node* n, int voff, int hoff);
+        int parsePixels(std::string);
         
 
 };
