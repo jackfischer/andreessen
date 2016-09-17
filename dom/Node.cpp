@@ -15,3 +15,6 @@ void Node::addChild(Node *n) {
 void Node::giveParent(Node *p) {
     Node::parent = p;
 }
+void Node::addAttribute(std::string key, std::string data) {
+    Node::attributes[key] = data;
+}
