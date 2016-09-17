@@ -3,8 +3,9 @@ CFLAGS= -std=gnu++11 -c -g -Wall
 
 ifeq "$(shell uname)" "Darwin"
 	GLUT_LDFLAGS = -lglut -framework OpenGL
+	#GLUT_LDFLAGS = -framework GLUT -framework OpenGL
 else
-	GLUT_LDFLAGS = -lglut -lGL -lGLU -lX11 -lSOIL
+	GLUT_LDFLAGS = -lglut -lGL -lGLU -lX11
 endif
 
 LDFLAGS= $(GLUT_LDFLAGS)
