@@ -21,5 +21,6 @@ class Node {
         void addChild(Node *n);
         void giveParent(Node *p);
         void addAttribute(std::string key, std::string data);
+        void print(std::string before, std::string beforeLast);
 };
 #endif

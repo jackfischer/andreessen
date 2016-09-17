@@ -21,6 +21,7 @@ Node * Parser::parseHTML(std::string html) {
     bool tagName = false;
     bool inbetweenTag = false;
     while (run) {
+        std::cout<<html[charNum]<<"\n";
         // determine state, if no state change required nothing happens
         lastChar = currentChar;
         currentChar = html[charNum];
@@ -88,6 +89,9 @@ Node * Parser::parseHTML(std::string html) {
             default: // Drop character
                 break;
         }
+        charNum++;
+        if (charNum == html.length()) run = false;
     }
+    parent->print("","");
     return parent;
 }
