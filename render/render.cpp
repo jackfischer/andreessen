@@ -1,4 +1,7 @@
 #include "render.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 const char *example = "Look at my pretty fonts";
 // void loadtex()
@@ -60,6 +63,11 @@ void reshape(int w, int h)
 void init()
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
+    const unsigned char *a = (unsigned char *)"W";
+    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_10, a) << endl;
+    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_12, a) << endl;
+    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_18, a) << endl;
+
 }
 
 int main(int argc, char **argv)
@@ -67,11 +75,7 @@ int main(int argc, char **argv)
     glutInit(&argc, argv);
     glutInitWindowSize(1000, 700);
     glutCreateWindow("Andreesen");
-<<<<<<< HEAD
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-=======
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
->>>>>>> 9dfd2e920e1a4a422c8ec7c7b99e22814fa0d5a7
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
