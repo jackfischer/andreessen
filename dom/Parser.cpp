@@ -122,6 +122,6 @@ Node * Parser::parseHTML(std::string html) {
         charNum++;
         if (charNum == html.length()) run = false;
     }
-    parent->print("","");
+    // parent->print("","");
     return parent;
 }

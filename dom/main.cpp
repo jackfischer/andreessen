@@ -29,10 +29,25 @@ int main() {
     }
     file.close();
 
+    Node root;
+    root.name = "groot";
+    Node a(root);
+    a.name = "a";
+    Node b(root);
+    b.name = "b";
+    Node b1(b);
+    b1.name = "b1";
+    b1.addAttribute("hi", "bruh");
+    b1.addAttribute("sup", "mayne");
+    root.textData = "im some text data bruh";
+    root.addAttribute("test","attribute");
+    // root.print("","");
+
     Parser p;
     Node *hi = p.parseHTML(html);
     std::vector<Node *> ns = DFS(hi);
+    std::cout<<"\n\n\n\n\n\n\n";
     for (int i = 0; i < ns.size(); i++) {
-        std::cout<<ns[i]->name<<"\n";
+        std::cout<<ns[i]->children.size()<<"\n";
     }
 }
