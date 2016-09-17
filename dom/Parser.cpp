@@ -5,9 +5,6 @@
 #include <string>
 
 Node * Parser::parseHTML(std::string html) {
-    // std::stringstream ss;
-    // ss<<html;
-    // html = "<html><body jack =\"fischer\"></body></html>\n";
     std::cout<<html;
     Node *currentNode;
     Node *parent = 0;
@@ -15,7 +12,6 @@ Node * Parser::parseHTML(std::string html) {
     bool inbetweenTag = false;
     bool run = true;
     bool tagName = false;
-    bool s1 = false;
     char currentChar = html[0];
     char lastChar;
     int charNum = 1;
@@ -27,22 +23,17 @@ Node * Parser::parseHTML(std::string html) {
         lastChar = currentChar;
         currentChar = html[charNum];
         
-        if (state == 0 && currentChar == '<') tagName = false;
+        if (lastChar == '<') tagName = false;
 
-        // if (state != 1) {
-        //     if (currentChar == '\t' || currentChar == '\r' || currentChar == '\n' || (currentChar == ' ' && state != 0)) { state = -1;}
-        // }
-
-        // if (state == 1 && currentChar == '<') {state = -1;}
-        // if ((currentChar != '<' || currentChar != '>' || currentChar != '/') && state == 1) {state = 1;}
+        // if ((currentChar != '<' || currentChar != '>' || currentChar != '/') && state == 1) state = 1;
         if (lastChar == '<' && currentChar != '/') state = 0;
-        if (currentChar == '/' && lastChar == '<') {state = 2;}
-        // if (currentChar == '<') {state = -1;} // drop character
+        if (lastChar == '>' && currentChar != '<') state = 1;
+        if (currentChar == '/' && lastChar == '<') state = 2;
         // execute state
-        std::cout<<"equal Bool: "<<equalSign<<" InTag bool: "<<inbetweenTag<<" TagName bool: "<<tagName<<" current Char: "<<currentChar<<" l char: "<<lastChar<<" state: "<<state<<"\n";
+        // std::cout<<"equal Bool: "<<equalSign<<" InTag bool: "<<inbetweenTag<<" TagName bool: "<<tagName<<" current Char: "<<currentChar<<" l char: "<<lastChar<<" state: "<<state<<"\n";
         switch (state) {
             case 0: { // IN TAG
-                if (std::isalpha(currentChar) && currentChar != ' '/* && currentChar != '\"'*/) {
+                if ((currentChar == '-' || std::isalpha(currentChar)) && currentChar != ' '/* && currentChar != '\"'*/) {
                     holder += currentChar;
                 }
                 if (parent == 0 && lastChar == '<') {
@@ -76,18 +67,45 @@ Node * Parser::parseHTML(std::string html) {
                 break;
             }
             case 1: { // BETWEEN TAGS
+                if (currentChar == '<') {
+                    holder = "";
+                    state = 2;
+                    break;
+                }
                 holder += currentChar;
                 inbetweenTag = true;
                 break;
             }
             case 2: { // END TAG
-                if (inbetweenTag) {
-                    Node *n = new Node(currentNode);
-                    currentNode->addChild(n);
-                    n->name = "text";
-                    n->textData = holder;
-                    holder = "";
-                    inbetweenTag = false;
+                if (inbetweenTag && holder != "") {
+                    int posB;
+                    int posE;
+                    for (int i = 0; i < holder.size(); i++) {
+                        if (!std::iswspace(holder[i])) {
+                            posB = i;
+                            break;
+                        }
+                    }
+                    for (int i = holder.size()-1; i >=0; i++) {
+                        if (!std::iswspace(holder[i])) {
+                            posE = i+1;
+                            break;
+                        }
+                    }
+                    bool junk = (posE <= posB) ? true : false;
+                    if (!junk) {
+                        holder = holder.substr(posB, posE);
+                        std::cout<<holder<<"~~~NOT JUNK~~~\n";
+                        Node *n = new Node(currentNode);
+                        currentNode->addChild(n);
+                        n->name = "text";
+                        n->textData = holder;
+                        holder = "";
+                        inbetweenTag = false;
+                    } else {
+                        holder = "";
+                        inbetweenTag = false;
+                    }
                 }
                 // if (std::isalpha(currentChar) && currentChar != ' ') {
                 //     holder += currentChar;

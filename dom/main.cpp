@@ -1,7 +1,23 @@
 #include "Parser.h"
+#include <vector>
+#include <stack>
 #include <string>
 #include <iostream>
 #include <fstream>
+
+std::vector<Node*> DFS(Node * root) {
+    std::stack<Node*> stack;
+    stack.push(root);
+    std::vector<Node*> result;
+    while (!stack.empty()) {
+        Node* n = stack.top();
+        stack.pop();
+        result.push_back(n);
+        for (int i = n->children.size() - 1; i >=0; i--)
+            stack.push(n->children[i]);
+        }
+    return result;
+}
 
 int main() {
     std::ifstream file;
@@ -14,5 +30,9 @@ int main() {
     file.close();
 
     Parser p;
-    p.parseHTML(html);
+    Node *hi = p.parseHTML(html);
+    std::vector<Node *> ns = DFS(hi);
+    for (int i = 0; i < ns.size(); i++) {
+        std::cout<<ns[i]->name<<"\n";
+    }
 }
