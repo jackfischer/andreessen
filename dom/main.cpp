@@ -47,7 +47,8 @@ int main() {
     Node *hi = p.parseHTML(html);
     std::vector<Node *> ns = DFS(hi);
     std::cout<<"\n\n\n\n\n\n\n";
+    hi->print("","");
     for (int i = 0; i < ns.size(); i++) {
-        std::cout<<ns[i]->children.size()<<"\n";
+        // std::cout<<ns[i]->name<<"<|>"<<ns[i]->children.size()<<"\n";
     }
 }

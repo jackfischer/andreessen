@@ -21,22 +21,20 @@ void Node::addAttribute(std::string key, std::string data) {
 }
 void Node::print(std::string before, std::string beforeLast) {
     int numChildren = Node::children.size();
-    std::cout<<Node::name<<" | ";
+    std::cout<<Node::name<<" ~ ";
     for (auto iter : Node::attributes) {
         std::cout<<"key: "<<iter.first<<" = "<<iter.second<<"\t";
     }
     std::cout<<textData<<std::endl;
-    // bool first = (before.compare("") == 0) ? true : false;
-    std::cout<<numChildren<<"\n";
+    beforeLast += "    ";
+    if (numChildren > 1) before += "|   ";
     for (int i = 0; i < numChildren; i++) {
         if (i != numChildren - 1) {
             std::cout<<"|-->";
-            before+="|   ";
-            Node::children[i]->print(before, beforeLast);
+            Node::children[i]->print(before, before);
         } else {
             std::cout<<beforeLast<<"`-->";
-            beforeLast += "    ";
-            Node::children[i]->print(before, beforeLast);
+            Node::children[i]->print(beforeLast, beforeLast);
         }
     }
 }
