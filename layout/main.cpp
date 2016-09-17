@@ -22,10 +22,7 @@ int main() {
     styles["blue-inline"]["display"] = "inline";
     styles["blue-inline"]["background-color"] = "blue";
 
-
-    Node* root = new Node();
-    root->name = "body";
-    root->addAttribute("id", "body");
+Node* root = new Node(); root->name = "body"; root->addAttribute("id", "body");
 
     Node* y1 = new Node();
     y1->name = "div";
@@ -58,6 +55,7 @@ int main() {
     root->addChild(y2);
     root->children[3]->addChild(b3);
     root->children[3]->addChild(b4);
+
 
     LayoutEngine le(root, styles);
     le.startLayout();

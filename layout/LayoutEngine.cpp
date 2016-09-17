@@ -108,21 +108,46 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
     }
 
     //std::cout << voff_ << " " << hoff_ << std::endl;
+
+    int vsib = n->ld.voff;
+    bool prevWasInline = false;
+    int eventualInlineHeight = 0;
+    int runningInlineWidth = n->ld.hoff;
     for (Node* c : n->children) {
-        //TODO Caller offsets!
         if (c->ld.block) {
-            //std::cout <<"BLOCK"<<std::endl;
-            layout(c, n->ld.voff, n->ld.hoff);
+            if (prevWasInline) {
+                vsib = eventualInlineHeight;
+                eventualInlineHeight = 0;
+                runningInlineWidth = n->ld.hoff;
+                prevWasInline = false;
+            }
+            layout(c, vsib, n->ld.hoff);
+            vsib = c->ld.hoff + c->ld.height;
         } else {
-            //std::cout <<"INLINE"<<std::endl;
-            //layout(c, n->ld.voff + n->ld.height, n->ld.hoff + n->ld.width);
-            int v = n->ld.voff + n->ld.height;
-            int h = n->ld.hoff + n->ld.width;
-            //std::cout << "incoming vh for " << c->name << " " << v << " " << h <<std::endl;
-            layout(c, v, h);
-            //TODO: PERSIST FROM SIBLINGS!
+            prevWasInline = true;
+            layout(c, vsib, runningInlineWidth);
+            runningInlineWidth = c->ld.hoff + c->ld.width;
+            eventualInlineHeight = c->ld.voff + c->ld.height;
+        }
+
+    }
+    /*
+    bool inlineSib = false; //skip heights 
+    int vsib = n->ld.voff;
+    int hsib = n->ld.hoff;
+    for (Node* c : n->children) {
+        if (c->ld.block) {
+            layout(c, vsib, hsib);
+            vsib += c->ld.height;
+            inlineSib = false;
+        } else { //inline
+            //int v = vsib + n->ld.height;
+            int h = hsib + n->ld.width;
+            layout(c, vsib, h);
+            inlineSib = true;
         }
     }
+    */
 
 }
 
