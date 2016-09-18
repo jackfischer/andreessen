@@ -38,3 +38,14 @@ Box::Box(const char *text, int voff, int hoff,
     }
 
 }
+
+Box::~Box()
+{
+    delete [] topcolorf;
+    delete [] botcolorf;
+    delete [] textcolorf;
+    for (int i = 0; i < 3; ++i) {
+        delete [] vertices[i];
+    }
+    delete [] vertices;
+}
