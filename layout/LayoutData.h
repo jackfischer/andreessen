@@ -8,15 +8,19 @@
 
 class LayoutData {
     public:
-        
+
         bool block = true;
+
         int voff = 0; //vertical offset
         int hoff = 0; //horizontal offset
 
-        //int width = -1;
-        //int height = -1;
         int width = 0;
         int height = 0;
+
+        int topColor[3];
+        int bottomColor[3];
+
+        char* text;
 
 };
 

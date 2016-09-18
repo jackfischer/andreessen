@@ -13,7 +13,7 @@ int main() {
     //std::map<std::string, std::map<std::string, std::string>> styles;
     css styles;
 
-    styles["yellow-block"]["background-color"] = "yellow";
+    styles["yellow-block"]["background-color"] = "linear-gradient(red, yellow)";
     styles["yellow-block"]["display"] = "block";
     styles["yellow-block"]["height"] = "50px";
     styles["yellow-block"]["width"] = "200px";
@@ -22,7 +22,10 @@ int main() {
     styles["blue-inline"]["display"] = "inline";
     styles["blue-inline"]["background-color"] = "blue";
 
-Node* root = new Node(); root->name = "body"; root->addAttribute("id", "body");
+
+    Node* root = new Node();
+    root->name = "body";
+    root->addAttribute("id", "body");
 
     Node* y1 = new Node();
     y1->name = "div";
@@ -56,10 +59,11 @@ Node* root = new Node(); root->name = "body"; root->addAttribute("id", "body");
     root->children[3]->addChild(b3);
     root->children[3]->addChild(b4);
 
-
     LayoutEngine le(root, styles);
     le.startLayout();
     std::cout << le.toString();
+
+    std::cout << le.toLayoutData().size();
 }
 
 

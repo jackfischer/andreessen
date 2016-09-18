@@ -1,5 +1,6 @@
 #include "LayoutEngine.h"
 #include <iostream>
+#include <stdlib.h>
 
 /*
  * Layout Engine
@@ -15,6 +16,49 @@ std::vector<Node*> LayoutEngine::DFS() {
         result.push_back(n);
         for (int i = n->children.size() - 1; i >=0; i--)
             stack.push(n->children[i]);
+    }
+    return result;
+}
+
+std::vector<LayoutData> LayoutEngine::toLayoutData() {
+    std::map<std::string, int> colorNames = {
+        {"yellow", 0},
+        {"blue", 1},
+        {"red", 2},
+        {"black", 3},
+        {"cyan", 4},
+        {"green", 5},
+        {"pink", 6}
+    };
+
+    int colorVals[7][3] = {
+        {255,255,0},
+        {0,0,255},
+        {255,0,0},
+        {0,0,0},
+        {0,255,255},
+        {0,128,0},
+        {255,192,203}
+    };
+
+    std::vector<Node*> nodes = DFS();
+    std::vector<LayoutData> result;
+    for (Node* n : nodes) {
+        std::string bgcolor = style[n->attributes["class"]]["background-color"];
+        if (bgcolor.find("linear-gradient")) {
+            bcopy(colorVals[colorNames[bgcolor]], n->ld.topColor, 3*sizeof(int));
+            bcopy(colorVals[colorNames[bgcolor]], n->ld.bottomColor, 3*sizeof(int));
+        } else {
+            uint first = bgcolor.find("("); //first color
+            uint second = bgcolor.find(" "); //second color
+            uint end = bgcolor.size() - second - 2;
+            std::string color1 = bgcolor.substr(first + 1, second-first-2);
+            std::string color2 = bgcolor.substr(second+1, end);
+            bcopy(colorVals[colorNames[color1]], n->ld.topColor, 3*sizeof(int));
+            bcopy(colorVals[colorNames[color2]], n->ld.bottomColor, 3*sizeof(int));
+        }
+
+        result.push_back(n->ld);
     }
     return result;
 }
@@ -107,8 +151,6 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
         n->ld.height = textLD.height;
     }
 
-    //std::cout << voff_ << " " << hoff_ << std::endl;
-
     int vsib = n->ld.voff;
     bool prevWasInline = false;
     int eventualInlineHeight = 0;
@@ -131,23 +173,6 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
         }
 
     }
-    /*
-    bool inlineSib = false; //skip heights 
-    int vsib = n->ld.voff;
-    int hsib = n->ld.hoff;
-    for (Node* c : n->children) {
-        if (c->ld.block) {
-            layout(c, vsib, hsib);
-            vsib += c->ld.height;
-            inlineSib = false;
-        } else { //inline
-            //int v = vsib + n->ld.height;
-            int h = hsib + n->ld.width;
-            layout(c, vsib, h);
-            inlineSib = true;
-        }
-    }
-    */
 
 }
 

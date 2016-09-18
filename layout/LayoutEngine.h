@@ -20,8 +20,10 @@ class LayoutEngine {
         css style;
         LayoutEngine(Node* root, css style) : root(root), style(style) {}
 
+
         std::string toString();
         void startLayout();
+        std::vector<LayoutData> toLayoutData();
 
     private:
         LayoutData layoutText(std::string);
