@@ -3,16 +3,23 @@
 
 #include "render.h"
 #include "../images/loadimage.h"
+#include <vector>
+
+struct Point
+{
+    GLint x;
+    GLint y;
+};
 
 class Box
 {
     private:
-        GLint **vertices;
+        std::vector<Point> vertices;
         void *font;
         const char *text;
-        GLfloat *topcolorf;
-        GLfloat *botcolorf;
-        GLfloat *textcolorf;
+        GLdouble *topcolord;
+        GLdouble *botcolord;
+        GLdouble *textcolord;
         bool image;
         GLuint texture;
     public:
