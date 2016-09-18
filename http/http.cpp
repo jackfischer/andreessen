@@ -28,7 +28,7 @@ void Http::connect(std::string url) {
     if (::connect(Http::sck, (const struct sockaddr*)&addr, sizeof(addr)) != 0) {
         std::cout<<"connection failure\n";
     } else {
-        std::cout<<"successful connection\n";
+        //std::cout<<"successful connection\n";
     }
 }
 
@@ -40,6 +40,21 @@ std::string Http::makeRequest(const char *req) {
     sleep(1);
     read(Http::sck, buffer, BUFFER_SIZE-1);
     response = std::string(buffer);
-    std::cout<<response;
+    //std::cout<<response;
     return response;
 }
+
+std::string Http::dropHeaders(std::string doc) {
+    int loc = doc.find("\r\n\r\n");
+    std::string pure = doc.substr(loc + 4);
+    return pure;
+}
+
+std::string Http::entryPoint(std::string url) {
+    connect(url);
+    std::string req = "GET /index.html HTTP/1.1\nHost: "+url+"\n\n";
+    std::string response = makeRequest(req.c_str());
+    response = dropHeaders(response);
+    return response;
+}
+

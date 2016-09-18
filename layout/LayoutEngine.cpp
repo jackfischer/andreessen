@@ -44,8 +44,9 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
     std::vector<Node*> nodes = DFS();
     std::vector<LayoutData> result;
     for (Node* n : nodes) {
-        std::string bgcolor = style[n->attributes["class"]]["background-color"];
-        if (bgcolor.find("linear-gradient")) {
+        std::string bgcolor = style[n->attributes["class"]]["background"];
+        if (bgcolor.empty()) {
+            bgcolor = style[n->attributes["class"]]["background-color"];
             bcopy(colorVals[colorNames[bgcolor]], n->ld.topColor, 3*sizeof(int));
             bcopy(colorVals[colorNames[bgcolor]], n->ld.bottomColor, 3*sizeof(int));
         } else {
@@ -57,7 +58,6 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
             bcopy(colorVals[colorNames[color1]], n->ld.topColor, 3*sizeof(int));
             bcopy(colorVals[colorNames[color2]], n->ld.bottomColor, 3*sizeof(int));
         }
-
         result.push_back(n->ld);
     }
     return result;
@@ -103,13 +103,13 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
      *
      * for each child
      *  call layout recursively
-     *  
+     *
      * if style:
      *  persist into ld
      *  (margin gives offset, size gives width/height)
      * elif no style and block:
      *  sum sizes of children
-     *  
+     *
      * elif no style and inline (assume leaf):
      *  perform text wrap, persist into ld
      *

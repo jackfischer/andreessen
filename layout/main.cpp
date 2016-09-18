@@ -13,7 +13,8 @@ int main() {
     //std::map<std::string, std::map<std::string, std::string>> styles;
     css styles;
 
-    styles["yellow-block"]["background-color"] = "linear-gradient(red, yellow)";
+    styles["yellow-block"]["background-color"] = "yellow";
+    styles["yellow-block"]["background"] = "linear-gradient(green, yellow)";
     styles["yellow-block"]["display"] = "block";
     styles["yellow-block"]["height"] = "50px";
     styles["yellow-block"]["width"] = "200px";
@@ -63,7 +64,7 @@ int main() {
     le.startLayout();
     std::cout << le.toString();
 
-    std::cout << le.toLayoutData().size();
+    le.toLayoutData();
 }
 
 

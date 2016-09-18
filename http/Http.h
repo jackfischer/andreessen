@@ -10,6 +10,8 @@ class Http {
         // functions
         void connect(std::string url);
         std::string makeRequest(const char *req);
+        std::string dropHeaders(std::string);
+        std::string entryPoint(std::string url);
 };
 
 #endif
