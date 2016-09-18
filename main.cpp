@@ -6,15 +6,15 @@
 
 
 int main() {
-    Http http;
-    std::string doc = http.makeRequest("andreessen.jackfischer.me");
-    
-    std::cout << doc <<std::endl;
 
-    //Parser parser;
-    //Node* root = parser.parseHTML(doc);
+    Http http;
+    std::string doc = http.entryPoint("andreessen.jackfischer.me");
+
+    Parser parser;
+    parser.parseHTML(doc);
     
-    //LayoutEngine layout(root);
-    //layout.startLayout();
+    LayoutEngine layout(parser.root, parser.css);
+    layout.startLayout();
+    std::cout << layout.toString();
     
 }

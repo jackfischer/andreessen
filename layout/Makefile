@@ -12,4 +12,4 @@ Node.o:
 	g++ -c -std=c++11 ../dom/Node.cpp
 
 clean:
-	rm *.o main
+	rm *.o main run
