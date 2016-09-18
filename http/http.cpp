@@ -10,7 +10,7 @@ extern "C" {
 #include <string>
 #include <unistd.h>
 
-#define BUFFER_SIZE 2000
+#define BUFFER_SIZE 10000
 
 void Http::connect(std::string url) {
     extern int h_errno;
@@ -37,11 +37,9 @@ std::string Http::makeRequest(const char *req) {
     char* buffer = (char *)malloc(BUFFER_SIZE);
     memset(buffer, 0, BUFFER_SIZE);
     std::string response;
-    std::cout<<"bytes: "<<read(Http::sck, buffer, BUFFER_SIZE-1)<<"\n";
-    std::cout<<buffer;
+    sleep(1);
+    read(Http::sck, buffer, BUFFER_SIZE-1);
     response = std::string(buffer);
-    std::cout<<"\nFIND: "<<response.find("\n\n");
-    response.erase(0, response.find("\n\n"));
     std::cout<<response;
     return response;
 }
