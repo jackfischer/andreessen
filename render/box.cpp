@@ -1,9 +1,11 @@
 #include "box.h"
 
-Box::Box(int voff, int hoff,
+Box::Box(const char *text, int voff, int hoff,
         int width, int height,
         int size, int *topcolori, int *botcolori)
 {
+    this->text = text;
+
     /* initialize vertices for box */
     vertices = new GLint*[2];
     for (int i = 0; i < 2; ++i) {

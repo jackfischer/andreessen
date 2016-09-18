@@ -8,11 +8,12 @@ class Box
     private:
         GLint **vertices;
         void *font;
+        const char *text;
         GLfloat *topcolorf;
         GLfloat *botcolorf;
         GLfloat *textcolorf;
     public:
-        Box(int voff, int hoff, int width, int height, int size, int *boxtop, int *boxbottom);
+        Box(const char *text, int voff, int hoff, int width, int height, int size, int *boxtop, int *boxbottom);
         void draw(void);
 };
 
