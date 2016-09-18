@@ -13,6 +13,7 @@ class Parser {
         std::map<std::string, std::map<std::string, std::string> > parseCSS(std::string in);
         std::string findCSS(Node *r);
         std::string removeWS(std::string s);
+        void deleteStyle(Node *n);
 };
 
 #endif
