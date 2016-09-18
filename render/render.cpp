@@ -1,9 +1,42 @@
+#include "box.h"
+#include "../layout/LayoutData.h"
 #include "render.h"
+#include "text.h"
 #include <iostream>
+#include <vector>
+
 using std::cout;
 using std::endl;
+using std::vector;
 
 const char *example = "Look at my pretty fonts";
+
+vector<Box*> activeBoxes;
+
+void loadLayoutData(vector<LayoutData> ld)
+{
+    activeBoxes.clear();
+    Box *addedBox;
+    for (auto div : ld) {
+        addedBox = new Box(
+                div.text,
+                div.image,
+                div.voff,
+                div.hoff,
+                div.width,
+                div.height,
+                div.textsize,
+                div.topColor,
+                div.bottomColor
+                );
+        activeBoxes.push_back(addedBox);
+    }
+
+    for (auto box : activeBoxes) {
+        box->draw();
+    }
+}
+
 // void loadtex()
 // {
 //     GLuint texture;
@@ -19,35 +52,16 @@ const char *example = "Look at my pretty fonts";
 //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 // }
 
-void drawBitmapText(const char *string, int x, int y, int size, float r, float g, float b)
-{
-    glRasterPos2f(x, y);
-
-    glBegin(GL_POLYGON);
-        glColor3f(r, g, b);
-    glEnd();
-
-    void *character = (size == 1) ? GLUT_BITMAP_HELVETICA_10
-        : (size == 2) ? GLUT_BITMAP_HELVETICA_12
-        : (size == 3) ? GLUT_BITMAP_HELVETICA_18
-        : GLUT_BITMAP_HELVETICA_12;
-
-    const char *c;
-    for (c = string; *c != '\0'; c++) {
-        glutBitmapCharacter(character, *c);
-    }
-}
 
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawBitmapText(example, 0, 0, 1, 1, 0, 0);
-    drawBitmapText(example, 0, 5, 2, 1, 1, 1);
-    drawBitmapText(example, 0, 10, 3, 1, 1, 0);
-    drawBitmapText(example, 0, 15, 4, 0, 1, 1);
-
-    glFlush();
+    drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 5, 1, 0, 1);
+    drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 10, 1, 1, 0);
+    drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 15, 0, 1, 1);
+    drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 0, 1, 0, 0);
+    glutSwapBuffers();
 }
 
 void reshape(int w, int h)
@@ -55,19 +69,15 @@ void reshape(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glScalef(1, -0.95, 1);
+    glScalef(1, -0.95, 1); // set top left to origin
     gluOrtho2D(0, 100, 0, 100);
     glMatrixMode(GL_MODELVIEW);
 }
 
 void init()
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    const unsigned char *a = (unsigned char *)"W";
-    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_10, a) << endl;
-    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_12, a) << endl;
-    cout << glutBitmapLength(GLUT_BITMAP_HELVETICA_18, a) << endl;
-
+    /* default to white background */
+    glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
 int main(int argc, char **argv)
@@ -75,7 +85,7 @@ int main(int argc, char **argv)
     glutInit(&argc, argv);
     glutInitWindowSize(1000, 700);
     glutCreateWindow("Andreesen");
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);

@@ -1,10 +1,12 @@
 #include "box.h"
+#include "text.h"
 
-Box::Box(const char *text, int voff, int hoff,
+Box::Box(const char *text, bool image, int voff, int hoff,
         int width, int height,
         int size, int *topcolori, int *botcolori)
 {
     this->text = text;
+    this->image = image;
 
     /* initialize vertices for box */
     vertices = new GLint*[2];
@@ -36,7 +38,6 @@ Box::Box(const char *text, int voff, int hoff,
         botcolorf[i] = botcolori[i] / 255;
         textcolorf[i] = 0; //perhaps add color later with CSS
     }
-
 }
 
 Box::~Box()
@@ -48,4 +49,22 @@ Box::~Box()
         delete [] vertices[i];
     }
     delete [] vertices;
+}
+
+void Box::draw(void)
+{
+    glBegin(GL_POLYGON);
+    glColor3fv(topcolorf);
+    glVertex2iv(vertices[0]);
+    glVertex2iv(vertices[1]);
+    glColor3fv(botcolorf);
+    glVertex2iv(vertices[2]);
+    glVertex2iv(vertices[3]);
+    glEnd();
+
+    if (!image) {
+        drawBitmapText(text, font, vertices[0][0], vertices[0][1],
+                textcolorf[0], textcolorf[1], textcolorf[2]);
+    } else {
+    }
 }
