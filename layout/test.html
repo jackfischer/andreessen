@@ -3,32 +3,30 @@
         <title>Hello!</title>
         <style>
 .yellow-block {
-    display:block;
-    background: linear-gradient(red, yellow);
     background-color: yellow;
+    background: linear-gradient(red, yellow);
+    display:block;
     height:50px;
     width:200px;
     margin-bottom:20px;
     margin-left:20px;
 }
-
 .blue-inline {
     display:inline;
     background-color: blue;
 }
-
         </style>
     </head>
 
     <body>
-        <div class="yellow-block">Sup BigRedHacks!</div>
+        <div class="yellow-block" id="y1">Sup BigRedHacks!</div>
 
-        <div class="blue-inline">inline</div>
-        <div class="blue-inline">tags</div>
+        <div class="blue-inline" id="b1">inline</div>
+        <div class="blue-inline" id="b2">tags</div>
 
-        <div class="yellow-block">
-            <div class="blue-inline">inline</div>
-            <div class="blue-inline">tags</div>
+        <div class="yellow-block" id="y2">
+            <div class="blue-inline" id="b3">inline</div>
+            <div class="blue-inline" id="b4">tags</div>
         </div>
 
     </body>

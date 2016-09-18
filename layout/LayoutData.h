@@ -5,7 +5,6 @@
  * Frame Tree data encapsulation class
  */
 
-
 class LayoutData {
     public:
 
@@ -20,7 +19,7 @@ class LayoutData {
         int topColor[3];
         int bottomColor[3];
 
-        char* text;
+        const char* text = "wut";
         int textsize = 2;
         bool image = false;
 

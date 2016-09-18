@@ -12,6 +12,9 @@ using std::vector;
 
 const char *example = "Look at my pretty fonts";
 
+int width = 1000;
+int height = 800;
+
 vector<Box*> *activeBoxes;
 
 void loadLayoutData(vector<LayoutData> ld)
@@ -53,7 +56,7 @@ void display()
     // drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 0, 1, 0, 0);
     // debug("A");
     for (auto box : *activeBoxes) {
-        debug("B");
+        // debug("B");
         box->draw();
     }
 
@@ -65,8 +68,8 @@ void reshape(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glScalef(1, -0.95, 1); // set top left to origin
-    gluOrtho2D(0, 1000, 0, 1000);
+    glScalef(1, -0.96, 1); // set top left to origin
+    gluOrtho2D(0, width, 0, height);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -82,7 +85,7 @@ void init()
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutInitWindowSize(1000, 700);
+    glutInitWindowSize(width, height);
     glutCreateWindow("Andreesen");
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 

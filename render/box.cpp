@@ -81,17 +81,17 @@ void Box::draw(void)
     glEnd();
     // debug(9);
    
-    debug(vertices[0].x);
-    debug(vertices[0].y);
-    debug(vertices[1].x);
-    debug(vertices[1].y);
-    debug(vertices[2].x);
-    debug(vertices[2].y);
-    debug(vertices[3].x);
-    debug(vertices[4].y);
-    debug(topcolord[0] * 255);
-    debug(topcolord[1] * 255);
-    debug(topcolord[2] * 255);
+    // debug(vertices[0].x);
+    // debug(vertices[0].y);
+    // debug(vertices[1].x);
+    // debug(vertices[1].y);
+    // debug(vertices[2].x);
+    // debug(vertices[2].y);
+    // debug(vertices[3].x);
+    // debug(vertices[4].y);
+    // debug(topcolord[0] * 255);
+    // debug(topcolord[1] * 255);
+    // debug(topcolord[2] * 255);
 
     if (!image) {
         drawBitmapText(text, font, vertices[0].x, vertices[0].y,

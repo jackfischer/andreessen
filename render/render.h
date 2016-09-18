@@ -12,8 +12,8 @@
 #endif
 
 #include "../layout/LayoutData.h"
-#include <vector>
 #include "../main.h"
+#include <vector>
 
 void reshape(int w, int h);
 void init(void);

@@ -2,11 +2,7 @@
 
 void drawBitmapText(const char *string, void *font, int x, int y, float r, float g, float b)
 {
-    glRasterPos2f(x, y);
-
-    glBegin(GL_POLYGON);
-    glColor3f(r, g, b);
-    glEnd();
+    glRasterPos2f(x, y+8);
 
     const char *c;
     for (c = string; *c != '\0'; c++) {

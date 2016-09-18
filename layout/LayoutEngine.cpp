@@ -1,6 +1,12 @@
 #include "LayoutEngine.h"
 #include <iostream>
 #include <stdlib.h>
+#include "../render/render.h"
+
+using std::cerr;
+using std::endl;
+
+#define debug(s) cerr << s << endl
 
 /*
  * Layout Engine
@@ -50,6 +56,7 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
             bcopy(colorVals[colorNames[bgcolor]], n->ld.topColor, 3*sizeof(int));
             bcopy(colorVals[colorNames[bgcolor]], n->ld.bottomColor, 3*sizeof(int));
         } else {
+            debug(1);
             uint first = bgcolor.find("("); //first color
             uint second = bgcolor.find(" "); //second color
             uint end = bgcolor.size() - second - 2;
@@ -58,6 +65,7 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
             bcopy(colorVals[colorNames[color1]], n->ld.topColor, 3*sizeof(int));
             bcopy(colorVals[colorNames[color2]], n->ld.bottomColor, 3*sizeof(int));
         }
+        n->ld.text = n->textData.c_str();
         result.push_back(n->ld);
     }
     return result;
@@ -179,7 +187,8 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
 LayoutData LayoutEngine::layoutText(std::string in) {
     in.length();
     LayoutData d;
-    d.width = 100;
+    // d.width = 100;
+    d.width = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (unsigned char *)d.text);
     d.height = 10;
     return d;
 }
