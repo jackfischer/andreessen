@@ -37,22 +37,6 @@ void loadLayoutData(vector<LayoutData> ld)
     }
 }
 
-// void loadtex()
-// {
-//     GLuint texture;
-//     int w, h;
-//     unsigned char *data;
-
-//     data = loadPPM("../images/test.ppm", w, h);
-
-//     glGenTextures(1, &texture);
-//     glBindTexture(GL_TEXTURE_2D, texture);
-//     glTexImage2D(GL_TEXTURE_2D, 0, 3, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// }
-
-
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -61,6 +45,7 @@ void display()
     drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 10, 1, 1, 0);
     drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 15, 0, 1, 1);
     drawBitmapText(example, GLUT_BITMAP_HELVETICA_18, 0, 0, 1, 0, 0);
+
     glutSwapBuffers();
 }
 

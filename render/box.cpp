@@ -1,5 +1,6 @@
 #include "box.h"
 #include "text.h"
+#include "../images/loadimage.h"
 
 Box::Box(const char *text, bool image, int voff, int hoff,
         int width, int height,
@@ -65,6 +66,10 @@ void Box::draw(void)
     if (!image) {
         drawBitmapText(text, font, vertices[0][0], vertices[0][1],
                 textcolorf[0], textcolorf[1], textcolorf[2]);
-    } else {
     }
+    // } else {
+    //     glBegin(GL_QUADS);
+    //     glTexCoord2f()
+    //     glEnd();
+    // }
 }

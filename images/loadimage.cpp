@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
-#include "imagetools.h"
+#include "loadimage.h"
 
 unsigned char *loadPPM(const char *filename, int &width, int &height)
 {
