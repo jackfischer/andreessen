@@ -65,7 +65,7 @@ void init()
     glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
-int main(int argc, char **argv)
+int startBrowser(int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitWindowSize(1000, 700);
