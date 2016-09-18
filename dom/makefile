@@ -1,4 +1,4 @@
-all: run
+all:	run
 
 run:	Parser.o Node.o main.o
 	g++ Parser.o Node.o main.o -o run

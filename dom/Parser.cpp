@@ -127,7 +127,7 @@ Node * Parser::findNode(Node *n, std::string name) {
     if (n->name.compare(name) == 0) {
         return n;
     } else {
-        for (int i = 0; i < n->children.size(); i++) {
+        for (uint i = 0; i < n->children.size(); i++) {
             return findNode(n->children[i], name);
         }
     }
@@ -137,13 +137,13 @@ Node * Parser::findNode(Node *n, std::string name) {
 void Parser::deleteStyle(Node *n) {
     if (n->name.compare("style") && n->parent != 0) {
         Node *p = n->parent;
-        for (int i = 0; i < p->children.size(); i++) {
+        for (uint i = 0; i < p->children.size(); i++) {
             if (p->children[i] == n) {
                 p->children.erase(p->children.begin() + i);
             }
         }
     } else {
-        for (int i = 0; i < n->children.size(); i++) {
+        for (uint i = 0; i < n->children.size(); i++) {
             deleteStyle(n->children[i]);
         }
     }
@@ -151,14 +151,16 @@ void Parser::deleteStyle(Node *n) {
 
 std::string Parser::findCSS(Node *r) {
     if (r->name.compare("style") == 0) {
-        // std::cout<<r->textData;
         return r->textData;
-    } else if (r->children.size() > 0) {
-        for (uint i = 0; i < r->children.size(); i++) {
-            findCSS(r->children[i]);
+    } else if (r->children.size() > 1) {
+        for (uint i = 1; i < r->children.size(); i++) {
+            return findCSS(r->children[i-1]) + findCSS(r->children[i]);
         }
+    } else if (r->children.size() == 1) {
+        return findCSS(r->children[0]);
+    } else {
+        return "";
     }
-    return "";
 }
 
 std::map<std::string, std::map<std::string, std::string> > Parser::parseCSS(std::string in) {
