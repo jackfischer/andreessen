@@ -5,7 +5,7 @@
 #include <string>
 
 Node * Parser::parseHTML(std::string html) {
-    std::cout<<html;
+    // std::cout<<html;
     Node *currentNode;
     Node *parent = 0;
     bool equalSign = false;
@@ -46,20 +46,21 @@ Node * Parser::parseHTML(std::string html) {
                     currentNode = n;
                 }
                 if ((currentChar == ' ' || currentChar == '>')  && !tagName) {
+                    holder = removeWS(holder);
                     currentNode->name = holder;
-                    std::cout<<holder<<" -name\n";
+                    // std::cout<<holder<<" -name\n";
                     holder = "";
                     tagName = true;
                 }
                 if (holder.size() != 0 && (currentChar == ' ' || currentChar == '>') && equalSign) {
                     currentNode->addAttribute(keyHolder, holder);
-                    std::cout<<holder<<" -data\n";
+                    // std::cout<<holder<<" -data\n";
                     keyHolder = "";
                     holder = "";
                     equalSign = false;
                 }
                 if (currentChar == '=') {
-                    std::cout<<holder<<" -key\n";
+                    // std::cout<<holder<<" -key\n";
                     equalSign = true;
                     keyHolder = holder;
                     holder = "";
@@ -68,7 +69,6 @@ Node * Parser::parseHTML(std::string html) {
             }
             case 1: { // BETWEEN TAGS
                 if (currentChar == '<') {
-                    holder = "";
                     state = 2;
                     break;
                 }
@@ -77,35 +77,39 @@ Node * Parser::parseHTML(std::string html) {
                 break;
             }
             case 2: { // END TAG
-                if (inbetweenTag && holder != "") {
+                if (inbetweenTag) {
                     int posB;
                     int posE;
                     for (int i = 0; i < holder.size(); i++) {
                         if (!std::iswspace(holder[i])) {
+                            // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
                             posB = i;
                             break;
+                        } else {
+                            posB = i;
                         }
                     }
-                    for (int i = holder.size()-1; i >=0; i++) {
+                    for (int i = holder.size()-1; i >=0; i--) {
                         if (!std::iswspace(holder[i])) {
-                            posE = i+1;
+                            // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
+                            posE = i + 1;
                             break;
+                        } else {
+                            posE = i;
                         }
                     }
                     bool junk = (posE <= posB) ? true : false;
                     if (!junk) {
+                        // std::cout<<posB<<"    "<<posE<<"\n"<<holder;
                         holder = holder.substr(posB, posE);
-                        std::cout<<holder<<"~~~NOT JUNK~~~\n";
-                        Node *n = new Node(currentNode);
-                        currentNode->addChild(n);
-                        n->name = "text";
-                        n->textData = holder;
-                        holder = "";
+                        // std::cout<<"~~~~~~~~~~~~~~~~~"<<holder<<"~~~NOT JUNK~~~\n";
+                        // std::cout<<"textData: "<<holder<<'\n';
+                        currentNode->textData = holder;
                         inbetweenTag = false;
                     } else {
-                        holder = "";
                         inbetweenTag = false;
                     }
+                    holder = "";
                 }
                 // if (std::isalpha(currentChar) && currentChar != ' ') {
                 //     holder += currentChar;
@@ -123,5 +127,53 @@ Node * Parser::parseHTML(std::string html) {
         if (charNum == html.length()) run = false;
     }
     // parent->print("","");
+    css = parseCSS(findCSS(parent));
+    root = parent;
     return parent;
+}
+
+std::string Parser::findCSS(Node *r) {
+    if (r->name.compare("style") == 0) {
+        std::cout<<r->textData;
+        return r->textData;
+    } else if (r->children.size() > 0) {
+        for (int i = 0; i < r->children.size(); i++) {
+            findCSS(r->children[i]);
+        }
+    }
+    return "";
+}
+
+std::map<std::string, std::map<std::string, std::string> > Parser::parseCSS(std::string in) {
+    std::cout<<"HI"<<'\n';
+    std::map<std::string, std::map<std::string, std::string> > cssMap;
+    int state;
+    for (auto iter : in) {
+        std::cout<<iter;
+    }
+    return cssMap;
+}
+
+std::string Parser::removeWS(std::string s) {
+    int posB;
+    int posE;
+    for (int i = 0; i < s.size(); i++) {
+        if (!std::iswspace(s[i])) {
+            // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
+            posB = i;
+            break;
+        } else {
+            posB = i;
+        }
+    }
+    for (int i = s.size()-1; i >=0; i--) {
+        if (!std::iswspace(s[i])) {
+            // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
+            posE = i + 1;
+            break;
+        } else {
+            posE = i;
+        }
+    }
+    return s.substr(posB, posE);
 }

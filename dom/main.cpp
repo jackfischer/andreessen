@@ -35,6 +35,9 @@ int main() {
     a.name = "a";
     Node b(root);
     b.name = "b";
+    Node s(b);
+    s.name = "style";
+    s.textData = "CSS DATA BRUH YEAHHHHHHHHH";
     Node b1(b);
     b1.name = "b1";
     b1.addAttribute("hi", "bruh");
@@ -42,13 +45,13 @@ int main() {
     root.textData = "im some text data bruh";
     root.addAttribute("test","attribute");
     // root.print("","");
+    // std::cout<<'\n';
 
     Parser p;
-    Node *hi = p.parseHTML(html);
-    std::vector<Node *> ns = DFS(hi);
-    std::cout<<"\n\n\n\n\n\n\n";
-    hi->print("","");
-    for (int i = 0; i < ns.size(); i++) {
-        // std::cout<<ns[i]->name<<"<|>"<<ns[i]->children.size()<<"\n";
-    }
+    p.parseHTML(html);
+    // std::vector<Node *> ns = DFS(hi);
+    // hi->print("","");
+    // for (int i = 0; i < ns.size(); i++) {
+    //     // std::cout<<ns[i]->name<<"<|>"<<ns[i]->children.size()<<"\n";
+    // }
 }

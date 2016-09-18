@@ -10,7 +10,7 @@ extern "C" {
 #include <string>
 #include <unistd.h>
 
-#define BUFFER_SIZE 80000
+#define BUFFER_SIZE 2000
 
 void Http::connect(std::string url) {
     extern int h_errno;
@@ -34,18 +34,14 @@ void Http::connect(std::string url) {
 
 std::string Http::makeRequest(const char *req) {
     send(Http::sck, req, std::string(req).length(), 0);
-    const size_t cBUFFER_SIZE = 80192;
-    size_t BUFFER_SIZE = ;
-    char buffer[(int)BUFFER_SIZE];
-    std::string response = "";
-    std::cout<<recv(Http::sck, &buffer, (size_t)BUFFER_SIZE, 0);
+    char* buffer = (char *)malloc(BUFFER_SIZE);
+    memset(buffer, 0, BUFFER_SIZE);
+    std::string response;
+    std::cout<<"bytes: "<<read(Http::sck, buffer, BUFFER_SIZE-1)<<"\n";
     std::cout<<buffer;
     response = std::string(buffer);
-    char last = buffer[0];
-    int i;
-    for (i = 1; i < BUFFER_SIZE; i++)
-        if (last == '\n' && buffer[i] == '\n') break;
-    response.erase(0, i + 1);
-    std::cout<<response<<"------------------------------------------------------\n";
+    std::cout<<"\nFIND: "<<response.find("\n\n");
+    response.erase(0, response.find("\n\n"));
+    std::cout<<response;
     return response;
 }
