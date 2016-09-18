@@ -19,7 +19,7 @@ const char *example = "Look at my pretty fonts";
 //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 // }
 
-void drawBitmapText(const char *string, float x, float y, int size, float r, float g, float b)
+void drawBitmapText(const char *string, int x, int y, int size, float r, float g, float b)
 {
     glRasterPos2f(x, y);
 
