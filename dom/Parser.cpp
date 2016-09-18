@@ -123,12 +123,22 @@ Node * Parser::parseHTML(std::string html) {
     return parent;
 }
 
+Node * Parser::findNode(Node *n, std::string name) {
+    if (n->name.compare(name) == 0) {
+        return n;
+    } else {
+        for (int i = 0; i < n->children.size(); i++) {
+            return findNode(n->children[i], name);
+        }
+    }
+    return 0;
+}
+
 void Parser::deleteStyle(Node *n) {
     if (n->name.compare("style") && n->parent != 0) {
         Node *p = n->parent;
         for (int i = 0; i < p->children.size(); i++) {
             if (p->children[i] == n) {
-                std::cout<<"YOU HAVE BEEN TERMINATED\n";
                 p->children.erase(p->children.begin() + i);
             }
         }
