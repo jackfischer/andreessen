@@ -58,10 +58,13 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
         } else {
             debug(1);
             uint first = bgcolor.find("("); //first color
-            uint second = bgcolor.find(" "); //second color
+            uint second = bgcolor.find(","); //second color
             uint end = bgcolor.size() - second - 2;
-            std::string color1 = bgcolor.substr(first + 1, second-first-2);
+            std::string color1 = bgcolor.substr(first + 1, second-first-1);
             std::string color2 = bgcolor.substr(second+1, end);
+            debug(bgcolor);
+            debug(color1);
+            debug(color2);
             bcopy(colorVals[colorNames[color1]], n->ld.topColor, 3*sizeof(int));
             bcopy(colorVals[colorNames[color2]], n->ld.bottomColor, 3*sizeof(int));
         }

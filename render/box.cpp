@@ -64,18 +64,20 @@ void Box::draw(void)
 {
     // debug(1);
     glBegin(GL_POLYGON);
-    // debug(2);
     glColor3f(topcolord[0], topcolord[1], topcolord[2]);
+    glVertex2i(vertices[3].x, vertices[3].y);
+    // debug(2);
     // debug(3);
+    glColor3f(topcolord[0], topcolord[1], topcolord[2]);
     glVertex2i(vertices[0].x, vertices[0].y);
     // debug(4);
+    glColor3f(botcolord[0], botcolord[1], botcolord[2]);
     glVertex2i(vertices[1].x, vertices[1].y);
     // debug(5);
-    glColor3f(botcolord[0], botcolord[1], botcolord[2]);
     // debug(6);
+    glColor3f(botcolord[0], botcolord[1], botcolord[2]);
     glVertex2i(vertices[2].x, vertices[2].y);
     // debug(7);
-    glVertex2i(vertices[3].x, vertices[3].y);
     // debug(8);
     glColor3f(0.0, 0.0, 0.0);
     glEnd();
