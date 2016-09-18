@@ -10,7 +10,7 @@ endif
 
 LDFLAGS= $(GLUT_LDFLAGS)
 
-SOURCES= render.cpp box.cpp text.cpp
+SOURCES= render.cpp box.cpp text.cpp ../images/loadimage.cpp
 HEADERS= render.h box.h text.h
 OBJECTS= $(SOURCES:.cpp=.o)
 EXECUTABLE= render

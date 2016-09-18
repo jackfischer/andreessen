@@ -71,7 +71,6 @@ int main(int argc, char **argv)
     glutInitWindowSize(1000, 700);
     glutCreateWindow("Andreesen");
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    loadtex();
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
