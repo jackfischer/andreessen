@@ -14,7 +14,7 @@ Node * Parser::parseHTML(std::string html) {
     bool tagName = false;
     char currentChar = html[0];
     char lastChar;
-    int charNum = 1;
+    uint charNum = 1;
     int state = 0;
     std::string holder;
     std::string keyHolder;
@@ -80,7 +80,7 @@ Node * Parser::parseHTML(std::string html) {
                 if (inbetweenTag) {
                     int posB;
                     int posE;
-                    for (int i = 0; i < holder.size(); i++) {
+                    for (uint i = 0; i < holder.size(); i++) {
                         if (!std::iswspace(holder[i])) {
                             // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
                             posB = i;
@@ -137,7 +137,7 @@ std::string Parser::findCSS(Node *r) {
         std::cout<<r->textData;
         return r->textData;
     } else if (r->children.size() > 0) {
-        for (int i = 0; i < r->children.size(); i++) {
+        for (uint i = 0; i < r->children.size(); i++) {
             findCSS(r->children[i]);
         }
     }
@@ -145,11 +145,49 @@ std::string Parser::findCSS(Node *r) {
 }
 
 std::map<std::string, std::map<std::string, std::string> > Parser::parseCSS(std::string in) {
-    std::cout<<"HI"<<'\n';
+    in.erase(std::remove(in.begin(), in.end(), '\n'), in.end());
+    in.erase(std::remove(in.begin(), in.end(), ' '), in.end());
+    std::cout <<in<<std::endl;
     std::map<std::string, std::map<std::string, std::string> > cssMap;
-    int state;
-    for (auto iter : in) {
-        std::cout<<iter;
+
+    int state = 0;
+    std::string clss;
+    std::string field;
+    std::string value;
+
+    for (char c : in) {
+        if (state == 0 && c == '.') {
+            state = 1;
+        }
+        else if (state == 1 && c != '{') {
+            clss.push_back(c);
+        }
+        else if (state == 1 && c == '{') {
+            state = 2;
+        }
+        else if (state == 2 && c != ':' && c != '}') {
+            field.push_back(c);
+        }
+        else if (state == 2 && c == ':') {
+            state = 3;
+        }
+        else if (state == 2 && c == '}') {
+            clss = "";
+            state = 0;
+        }
+        else if (state == 3 && c != ';') {
+            value.push_back(c);
+        }
+        else if (state == 3 && c == ';') {
+            std::cout <<clss<<std::endl;
+            std::cout <<field<<std::endl;
+            std::cout <<value<<std::endl <<std::endl;
+            cssMap[clss][field] = value;
+            field = "";
+            value = "";
+            state = 2;
+        }
+
     }
     return cssMap;
 }
@@ -157,7 +195,7 @@ std::map<std::string, std::map<std::string, std::string> > Parser::parseCSS(std:
 std::string Parser::removeWS(std::string s) {
     int posB;
     int posE;
-    for (int i = 0; i < s.size(); i++) {
+    for (uint i = 0; i < s.size(); i++) {
         if (!std::iswspace(s[i])) {
             // std::cout<<"|"<<holder[i]<<"|is not whitespace\n";
             posB = i;

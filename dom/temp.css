@@ -1,0 +1,19 @@
+.yellow-block {
+    display:block;
+    background-color: yellow;
+    height:50px;
+    width:200px;
+    margin-bottom:20px;
+    margin-left:20px;
+}
+.pink-block {
+    display:block;
+    background-color:pink;
+}
+.blue-inline {
+    display:inline;
+    background-color: blue;
+}
+.green-test {
+    background-color: green;
+}

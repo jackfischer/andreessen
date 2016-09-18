@@ -21,6 +21,8 @@ class LayoutData {
         int bottomColor[3];
 
         char* text;
+        int textsize = 2;
+        bool image = false;
 
 };
 
