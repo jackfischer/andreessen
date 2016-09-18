@@ -12,8 +12,10 @@ class Box
         GLfloat *topcolorf;
         GLfloat *botcolorf;
         GLfloat *textcolorf;
+        bool image;
     public:
-        Box(const char *text, int voff, int hoff, int width, int height, int size, int *boxtop, int *boxbottom);
+        Box(const char *text, bool image, int voff, int hoff, int width, int height,
+                int size, int *boxtop, int *boxbottom);
         ~Box();
         void draw(void);
 };
