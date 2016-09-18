@@ -3,6 +3,21 @@
 
 By [Jack Fischer](https://github.com/jackfischer), [Nik Vanderhoof](https://github.com/nvander1), and [Ethan Schoen](https://github.com/EthanSchoen)
 
+Supported HTML tags
+
+* p
+* div
+* img
+* span
+
+Supported CSS Properties
+
+* display: block, inline
+* background-color
+* background: linear-gradient
+* margin
+
+
 In honor of this guy! Submitted to Cornell BigRedHacks in Fall 2016
 
 ![](http://www.newyorker.com/wp-content/uploads/2015/05/150518_r26512-1200-630-06150519.jpg)
