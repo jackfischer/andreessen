@@ -66,5 +66,8 @@ void Box::draw(void)
         drawBitmapText(text, font, vertices[0][0], vertices[0][1],
                 textcolorf[0], textcolorf[1], textcolorf[2]);
     } else {
+        glBegin(GL_QUADS);
+        glTexCoord2f()
+        glEnd();
     }
 }
