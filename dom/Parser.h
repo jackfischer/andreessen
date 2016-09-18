@@ -14,6 +14,7 @@ class Parser {
         std::string findCSS(Node *r);
         std::string removeWS(std::string s);
         void deleteStyle(Node *n);
+        Node * findNode(Node *n, std::string name);
 };
 
 #endif
