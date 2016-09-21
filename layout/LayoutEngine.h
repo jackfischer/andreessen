@@ -1,7 +1,7 @@
 #ifndef LAYOUTENGINE_H
 #define LAYOUTENGINE_H
 
-#include "../DOM/Node.h"
+#include "../dom/Node.h"
 #include <map>
 #include <string>
 #include <stack>

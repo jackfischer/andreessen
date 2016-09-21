@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include <algorithm>
 #include <vector>
 #include <sstream>
 #include <iostream>

@@ -8,6 +8,8 @@ extern "C" {
 }
 #include <iostream>
 #include <string>
+#include <strings.h>
+#include <string.h>
 #include <unistd.h>
 
 #define BUFFER_SIZE 10000

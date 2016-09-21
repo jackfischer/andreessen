@@ -2,7 +2,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include "../render/render.h"
-
+#include <strings.h>
+#include <string.h>
 using std::cerr;
 using std::endl;
 
