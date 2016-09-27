@@ -1,3 +1,4 @@
+CXXFLAGS=-std=c++11 -Wall -pedantic
 ifeq "$(shell uname)" "Darwin"
 	LDFLAGS= -lglut -framework OpenGL
 	CXX=g++
@@ -7,34 +8,34 @@ else
 endif
 
 all: http.o Node.o Parser.o LayoutEngine.o main.o render.o box.o text.o loadimage.o
-	$(CXX) $(LDFLAGS) render.o box.o text.o loadimage.o http.o Node.o Parser.o LayoutEngine.o main.o -o main
+	$(CXX) $(LDFLAGS) $^
 
-render.o:
-	$(CXX) -c -std=c++11 render/render.cpp
+render.o: render/render.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-box.o:
-	$(CXX) -c -std=c++11 render/box.cpp
+box.o: render/box.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-text.o:
-	$(CXX) -c -std=c++11 render/text.cpp
+text.o: render/text.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-loadimage.o:
-	$(CXX) -c -std=c++11 images/loadimage.cpp
+loadimage.o: images/loadimage.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-main.o:
-	$(CXX) -c -std=c++11 main.cpp
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-LayoutEngine.o:
-	$(CXX) -c -std=c++11 layout/LayoutEngine.cpp
+LayoutEngine.o: layout/LayoutEngine.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-Parser.o:
-	$(CXX) -c -std=c++11 dom/Parser.cpp
+Parser.o: dom/Parser.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-Node.o:
-	$(CXX) -c -std=c++11 dom/Node.cpp
+Node.o: dom/Node.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
-http.o:
-	$(CXX) -c -std=c++11 http/http.cpp
+http.o: http/http.cpp
+	$(CXX) $(CXXFLAGS) -c $^
 
 clean:
 	rm *.o main
