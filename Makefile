@@ -3,8 +3,9 @@ ifeq "$(shell uname)" "Darwin"
 	LDFLAGS= -lglut -framework OpenGL
 	CXX=g++
 else
-	LDFLAGS= -lglut -lGL -lGLU -lX11
-	CXX=clang++-3.9
+	LDFLAGS= -lglut -lGL -lGLU -lX11 -lc++ -lc++abi
+	CXX=clang++
+	CXXFLAGS+=-stdlib=libc++
 endif
 
 all: http.o Node.o Parser.o LayoutEngine.o main.o render.o box.o text.o loadimage.o
