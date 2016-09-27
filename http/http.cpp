@@ -16,7 +16,7 @@ void Http::connect(std::string url) {
     extern int h_errno;
     const char *nameC = url.c_str();
     struct hostent host = *gethostbyname(nameC);
-    if (h_errno != 0) std::cout<<"gethostbyname failure\n";
+    if (h_errno != 0) std::cerr << "gethostbyname failure\n";
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
@@ -24,11 +24,9 @@ void Http::connect(std::string url) {
     bcopy((char*)host.h_addr, (char*)&addr.sin_addr.s_addr, host.h_length);
 
     Http::sck = socket(AF_INET, SOCK_STREAM, 0);
-    if (Http::sck == -1) std::cout<<"socket creation failure\n";
+    if (Http::sck == -1) std::cerr << "socket creation failure\n";
     if (::connect(Http::sck, (const struct sockaddr*)&addr, sizeof(addr)) != 0) {
-        std::cout<<"connection failure\n";
-    } else {
-        //std::cout<<"successful connection\n";
+        std::cerr << "connection failure\n";
     }
 }
 
