@@ -4,6 +4,7 @@
 #include "render.h"
 #include "../images/loadimage.h"
 #include <vector>
+#include <array>
 
 struct Point
 {
@@ -23,8 +24,9 @@ class Box
         bool image;
         GLuint texture;
     public:
-        Box(const char *text, bool image, int voff, int hoff, int width, int height,
-                int size, int *boxtop, int *boxbottom);
+        Box(const char *text, bool image, int voff, int hoff, int width,
+            int height, int size, const std::array<int, 3>& boxtop,
+            const std::array<int, 3>& boxbottom);
         ~Box();
         void draw(void);
 };

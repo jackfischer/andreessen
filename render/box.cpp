@@ -10,7 +10,8 @@ using std::vector;
 
 Box::Box(const char *text, bool image, int voff, int hoff,
         int width, int height,
-        int size, int *topcolori, int *botcolori)
+        int size, const std::array<int, 3>& topcolori,
+        const std::array<int, 3>& botcolori)
 {
     // debug(111);
     this->text = text;

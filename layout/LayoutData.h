@@ -5,6 +5,8 @@
  * Frame Tree data encapsulation class
  */
 
+#include <array>
+
 class LayoutData {
     public:
 
@@ -16,8 +18,8 @@ class LayoutData {
         int width = 0;
         int height = 0;
 
-        int topColor[3];
-        int bottomColor[3];
+        std::array<int, 3> topColor;
+        std::array<int, 3> bottomColor;
 
         const char* text = "wut";
         int textsize = 2;

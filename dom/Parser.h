@@ -1,9 +1,9 @@
+#ifndef PARSER_H
+#define PARSER_H
+
 #include "Node.h"
 #include <map>
 #include <string>
-
-#ifndef PARSER_H
-#define PARSER_H
 
 class Parser {
     public:
