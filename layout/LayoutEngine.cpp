@@ -21,8 +21,11 @@ std::vector<Node*> LayoutEngine::DFS() {
         Node* n = stack.top();
         stack.pop();
         result.push_back(n);
-        for (int i = n->children.size() - 1; i >=0; i--)
-            stack.push(n->children[i]);
+        for (auto it = n->children.rbegin(), end = n->children.rend();
+            it != end;
+            ++it) {
+          stack.push(*it);
+        }
     }
     return result;
 }
@@ -38,15 +41,15 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
         {"pink", 6}
     };
 
-    int colorVals[7][3] = {
-        {255,255,0},
-        {0,0,255},
-        {255,0,0},
-        {0,0,0},
-        {0,255,255},
-        {0,128,0},
-        {255,192,203}
-    };
+    std::array<std::array<int, 3>, 7> colorVals = {{
+        {{255,255,0}},
+        {{0,0,255}},
+        {{255,0,0}},
+        {{0,0,0}},
+        {{0,255,255}},
+        {{0,128,0}},
+        {{255,192,203}}
+    }};
 
     std::vector<Node*> nodes = DFS();
     std::vector<LayoutData> result;
@@ -54,8 +57,7 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
         std::string bgcolor = style[n->attributes["class"]]["background"];
         if (bgcolor.empty()) {
             bgcolor = style[n->attributes["class"]]["background-color"];
-            bcopy(colorVals[colorNames[bgcolor]], n->ld.topColor, 3*sizeof(int));
-            bcopy(colorVals[colorNames[bgcolor]], n->ld.bottomColor, 3*sizeof(int));
+            n->ld.bottomColor = n->ld.topColor = colorVals[colorNames[bgcolor]];
         } else {
             debug(1);
             uint first = bgcolor.find("("); //first color
@@ -66,8 +68,8 @@ std::vector<LayoutData> LayoutEngine::toLayoutData() {
             debug(bgcolor);
             debug(color1);
             debug(color2);
-            bcopy(colorVals[colorNames[color1]], n->ld.topColor, 3*sizeof(int));
-            bcopy(colorVals[colorNames[color2]], n->ld.bottomColor, 3*sizeof(int));
+            n->ld.topColor = colorVals[colorNames[color1]];
+            n->ld.bottomColor = colorVals[colorNames[color2]];
         }
         n->ld.text = n->textData.c_str();
         result.push_back(n->ld);
@@ -189,7 +191,6 @@ void LayoutEngine::layout(Node* n, int voff_, int hoff_) {
 }
 
 LayoutData LayoutEngine::layoutText(std::string in) {
-    in.length();
     LayoutData d;
     // d.width = 100;
     d.width = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (unsigned char *)d.text);
