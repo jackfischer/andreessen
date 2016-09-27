@@ -11,9 +11,8 @@
  * Layout Engine
  */
 
-typedef std::map<std::string, std::map<std::string, std::string> > css;
-
 class LayoutEngine {
+  using css = std::map<std::string, std::map<std::string, std::string>>;
     public:
         const int BROWSER_WIDTH = 960;
         Node* root;
