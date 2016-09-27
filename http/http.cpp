@@ -8,11 +8,9 @@ extern "C" {
 }
 #include <iostream>
 #include <string>
+#include <vector>
 #include <strings.h>
-#include <string.h>
 #include <unistd.h>
-
-#define BUFFER_SIZE 10000
 
 void Http::connect(std::string url) {
     extern int h_errno;
@@ -35,15 +33,12 @@ void Http::connect(std::string url) {
 }
 
 std::string Http::makeRequest(const char *req) {
+    constexpr auto BUFFER_SIZE = 10000;
     send(Http::sck, req, std::string(req).length(), 0);
-    char* buffer = (char *)malloc(BUFFER_SIZE);
-    memset(buffer, 0, BUFFER_SIZE);
-    std::string response;
     sleep(1);
-    read(Http::sck, buffer, BUFFER_SIZE-1);
-    response = std::string(buffer);
-    //std::cout<<response;
-    return response;
+    std::vector<char> buffer(BUFFER_SIZE);
+    read(Http::sck, buffer.data(), buffer.size());
+    return {buffer.data()};
 }
 
 std::string Http::dropHeaders(std::string doc) {
