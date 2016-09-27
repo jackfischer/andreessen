@@ -129,6 +129,9 @@ Node * Parser::findNode(Node *n, std::string name) {
         return n;
     } else {
         for (uint i = 0; i < n->children.size(); i++) {
+            // FIXME
+            // why is this a loop? this will just call
+            // findNode(n->children[0], name) and return that
             return findNode(n->children[i], name);
         }
     }
@@ -155,6 +158,8 @@ std::string Parser::findCSS(Node *r) {
         return r->textData;
     } else if (r->children.size() > 1) {
         for (uint i = 1; i < r->children.size(); i++) {
+            // FIXME again, I'm not seeing why this is in a loop since it
+            // returns right away
             return findCSS(r->children[i-1]) + findCSS(r->children[i]);
         }
     } else if (r->children.size() == 1) {
