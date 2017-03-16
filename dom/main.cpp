@@ -21,7 +21,7 @@ std::vector<Node*> DFS(Node * root) {
 
 int main() {
     std::ifstream file;
-    file.open("html.txt");
+    file.open("html.html");
     std::string html = "";
     std::string line;
     while (std::getline(file, line)) {

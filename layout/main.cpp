@@ -1,17 +1,13 @@
-#include "../DOM/Node.h"
+#include "../dom/Node.h"
 #include "LayoutEngine.h"
-//#include <map>
-//#include <string>
 #include <iostream>
 
 /*
  * dev environment for building layout engine in parallel with parser
  * and dom creation
  */
-
 int main() {
-    //std::map<std::string, std::map<std::string, std::string>> styles;
-    css styles;
+    css styles; //std::map<std::string, std::map<std::string, std::string>> styles;
 
     styles["yellow-block"]["background-color"] = "yellow";
     styles["yellow-block"]["background"] = "linear-gradient(green, yellow)";
