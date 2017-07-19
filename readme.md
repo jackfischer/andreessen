@@ -3,7 +3,7 @@
 
 By [Jack Fischer](https://github.com/jackfischer), [Nik Vanderhoof](https://github.com/nvander1), and [Ethan Schoen](https://github.com/EthanSchoen)
 
-Andreessen is a very bare bones proof of concept that won Cornell University's BigRedHacks in fall 2016. It should built on macOS and Ubuntu without modification and automatically render a demo page.
+Andreessen is a very bare bones proof of concept that won Cornell University's BigRedHacks in fall 2016. It should build on macOS and Ubuntu without modification and automatically render a demo page.
 
 Supported HTML tags
 
